@@ -1,0 +1,239 @@
+@mixin font-face($font-family, $url, $weight, $style) {
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('@/assets/fonts/#{$url}.woff2') format('woff2');
+    font-weight: #{$weight};
+    font-display: swap;
+    font-style: $style;
+  }
+}
+
+@function rem($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}rem;
+}
+
+@function em($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}em;
+}
+
+@function prc($pxOne, $pxTwo) {
+  @return #{$pxOne/$pxTwo * 100%};
+}
+
+//необходим эксперемент с переменными
+
+$maxWidth: 1920;
+$maxWidthContainer: 1200;
+
+@mixin adaptive-value($property, $startSize, $minSize, $type) {
+  $addSize: $startSize - $minSize;
+
+  @if ($type==1) {
+    //если меньше контейнера
+    #{$property}: $startSize + px;
+
+    @media (max-width: #{$maxWidthContainer+px}) {
+      #{$property}: calc(
+              #{$minSize + px} + #{$addSize} *
+              ((100vw - 320px) / #{$maxWidthContainer - 320})
+      );
+    }
+  } @else if ($type==2) {
+    //если больше контейнера
+    #{$property}: $startSize + px;
+
+    @media (min-width: #{$maxWidthContainer+px}) {
+      #{$property}: calc(
+              #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
+      );
+    }
+  } @else {
+    //всегда
+    #{$property}: calc(
+            #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
+    );
+  }
+}
+
+@mixin bg-cover {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@mixin flex {
+  display: flex;
+}
+
+@mixin flex-v-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-h-center {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin flex-all-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-all-sa {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+@mixin flex-all-sb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin photo-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@mixin block-hover {
+  position: absolute;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  //background-image: url(/images/dots.png);
+  z-index: 0;
+  transition: all 0.4s linear;
+}
+
+@keyframes color {
+  0% {
+    fill: #fff;
+  }
+  10% {
+    fill: #f1c40f;
+  }
+
+  20% {
+    fill: #fff;
+  }
+
+  30% {
+    fill: #f1c40f;
+  }
+
+  40% {
+    fill: #fff;
+  }
+
+  50% {
+    fill: #f1c40f;
+  }
+
+  60% {
+    fill: #fff;
+  }
+
+  70% {
+    fill: #f1c40f;
+  }
+  80% {
+    fill: #fff;
+  }
+
+  90% {
+    fill: #f1c40f;
+  }
+
+  100% {
+    fill: #fff;
+  }
+}
+
+@keyframes showMenu {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes unShowMenu {
+  100% {
+    opacity: 1;
+  }
+
+  0% {
+    opacity: 0;
+  }
+}
+
+@keyframes title-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
+
+
+
+
+
+
+@keyframes leftInAnimation {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes leftOutAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes rightInAnimation {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes rightOutAnimation {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}

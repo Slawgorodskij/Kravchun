@@ -1,0 +1,96 @@
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: "Formular", sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-background-body);
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+//
+//.for-mobile {
+//  display: none;
+//
+//  @include mobile {
+//    display: block;
+//  }
+//}
+
+.error {
+  border: 2px #ff4019 solid !important; // stylelint-disable-line declaration-no-important
+}
+
+.btn-reset {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1200px;
+}
+
+.main {
+  min-height: 100vh;
+}
+
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+//.wrapper {
+//   adaptive-value("padding-top", 50, 5, 0);
+//   adaptive-value("margin-bottom", 50, 5, 0);
+//}
+
+.title {
+  margin-top: 0;
+  text-align: center;
+}
+
+.text {
+  text-indent: 25px;
+}
+
+.model {
+  height: 30vh;
+}
