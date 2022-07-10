@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <p class="test">Образец</p>
+    <!--    <p class="test">Образец</p>-->
     <div class="header__wrapper">
       <router-link class="header__link" to="/">
         <img
@@ -10,8 +10,9 @@
         />
       </router-link>
       <nav class="header__nav">
-        <router-link class="header__link" to="/">Home</router-link>
-        <router-link class="header__link" to="/about">About</router-link>
+        <router-link class="header__link" to="/">Главная</router-link>
+        <router-link class="header__link" to="/about">Обо мне</router-link>
+        <router-link class="header__link" to="/contact">Контакты</router-link>
       </nav>
     </div>
   </div>

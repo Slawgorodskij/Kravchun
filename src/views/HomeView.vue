@@ -4,39 +4,23 @@
       <img class="performance__images" src="@/assets/images/house.jpg" alt="" />
       <div class="performance__block">
         <img src="@/assets/images/logo-v.png" alt="" />
-        <h1 class="performance__title">
-          Мы здесь, чтобы помочь вам найти новый дом.
-        </h1>
-      </div>
-      <div class="performance__arrow-block">
-        <svg
-          class="performance__arrow"
-          width="24"
-          height="22"
-          viewBox="0 0 24 22"
-          fill="none"
-        >
-          <path
-            d="M10.9393 21.0607C11.5251 21.6464 12.4749 21.6464 13.0607 21.0607L22.6066 11.5147C23.1924 10.9289 23.1924 9.97919 22.6066 9.3934C22.0208 8.80761 21.0711 8.80761 20.4853 9.3934L12 17.8787L3.51472 9.3934C2.92893 8.80761 1.97918 8.80761 1.3934 9.3934C0.807611 9.97918 0.807611 10.9289 1.3934 11.5147L10.9393 21.0607ZM10.5 -6.55671e-08L10.5 20L13.5 20L13.5 6.55671e-08L10.5 -6.55671e-08Z"
-          />
-        </svg>
+        <h1 class="performance__title">{{ performanceTitle }}</h1>
+        <div class="performance__arrow-block">
+          <svg
+            class="performance__arrow"
+            width="24"
+            height="22"
+            viewBox="0 0 24 22"
+            fill="none"
+          >
+            <path
+              d="M10.9393 21.0607C11.5251 21.6464 12.4749 21.6464 13.0607 21.0607L22.6066 11.5147C23.1924 10.9289 23.1924 9.97919 22.6066 9.3934C22.0208 8.80761 21.0711 8.80761 20.4853 9.3934L12 17.8787L3.51472 9.3934C2.92893 8.80761 1.97918 8.80761 1.3934 9.3934C0.807611 9.97918 0.807611 10.9289 1.3934 11.5147L10.9393 21.0607ZM10.5 -6.55671e-08L10.5 20L13.5 20L13.5 6.55671e-08L10.5 -6.55671e-08Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
-    <div class="home__menu menu" :class="{ active: isActive, fixed: isFixed }">
-      <div class="menu__wrapper">
-        <router-link class="nav__link" to="/">
-          <img
-            class="menu__images"
-            src="@/assets/images/logo.png"
-            alt="Кравчун Л.В."
-          />
-        </router-link>
-        <nav class="menu__nav">
-          <router-link class="menu__link" to="/">Home</router-link>
-          <router-link class="menu__link" to="/about">About</router-link>
-        </nav>
-      </div>
-    </div>
+    <MenuComponent />
     <section
       class="home__presentation presentation"
       :class="{ presentation__active: isPresentationActive }"
@@ -47,23 +31,20 @@
           :class="{ presentation__item_active: isPresentationItemActive }"
         >
           <p class="slogan__title">Наша цель</p>
-          <p class="slogan__text">
-            Мы стремимся найти дом, который вам понравится.
-          </p>
+          <p class="slogan__text">{{ sloganText }}</p>
         </div>
         <div
           class="presentation__item marketing"
           :class="{ presentation__item_active: isPresentationItemActive }"
         >
-          <p class="marketing__text">
-            Вы, как покупатель или продавец недвижимости, столкнетесь с большим
-            количеством вопросов при оформлении документов.
+          <p
+            class="marketing__text"
+            v-for="(text, id) in marketingText"
+            :key="id"
+          >
+            {{ text }}
           </p>
-          <p class="marketing__text marketing__text_pt-5">
-            Имея большой опыт работы в данном направлении мы готовы помочь в
-            поиске недвижимости и сборе необходимых документов юридически
-            грамотном оформлении.
-          </p>
+
           <div class="marketing__block">
             <div class="marketing__block-image">
               <img
@@ -87,15 +68,23 @@
         </transition>
 
         <div class="services__item services__item_mb-25">
-          <p class="services__activity">При покупке</p>
-          <p class="services__activity">Продаже</p>
-          <p class="services__activity">Аренде</p>
+          <p
+            class="services__activity"
+            v-for="(text, id) in activityItem"
+            :key="id"
+          >
+            {{ text }}
+          </p>
         </div>
 
         <div class="services__item">
-          <p class="services__estate">Квартир</p>
-          <p class="services__estate">Гаражей</p>
-          <p class="services__estate">Дач</p>
+          <p
+            class="services__estate"
+            v-for="(text, id) in estateItem"
+            :key="id"
+          >
+            {{ text }}
+          </p>
         </div>
       </div>
     </section>
@@ -105,18 +94,31 @@
         Мы с удовольствием поможем найти недвижимость вашей мечты. Оформить
         документы. Провести безопасные сделки.
       </p>
-      <button class="feedback__button">Контакт</button>
+      <router-link class="feedback__transition" to="/contact"
+        >Контакт</router-link
+      >
     </div>
   </div>
 </template>
 
 <script>
+import MenuComponent from "@/components/MenuComponent";
 export default {
   name: "HomeView",
+  components: { MenuComponent },
   data() {
     return {
-      isActive: false,
-      isFixed: false,
+      performanceTitle:
+        "Мы здесь, чтобы оформление недвижимости прошло с успехом.",
+      sloganText:
+        "Мы стремимся обеспечить безопасность ваших сделок с недвижимостью.",
+      marketingText: [
+        "Вы, как покупатель или продавец недвижимости, столкнетесь с огромным количеством вопросов при оформлении документов.",
+
+        "Имея большой опыт работы в данном направлении мы готовы помочь в поиске недвижимости и сборе необходимых документов юридически грамотном оформлении.",
+      ],
+      activityItem: ["При покупке", "Продаже", "Аренде"],
+      estateItem: ["Квартир", "Гаражей", "Дач"],
       isPresentationActive: false,
       isPresentationItemActive: false,
       showTitle: false,
@@ -164,38 +166,6 @@ export default {
       nameArray.forEach((elem) => {
         elem.classList.remove(nameClass);
       });
-    },
-    showMenu() {
-      const scrollTopDoc = document.documentElement.scrollTop;
-      if (scrollTopDoc > this.heightBlockHeader) {
-        this.isActive = true;
-        document.removeEventListener("scroll", this.showMenu);
-        document.addEventListener("scroll", this.unShowMenu);
-      }
-    },
-    unShowMenu() {
-      const scrollTopDoc = document.documentElement.scrollTop;
-      if (scrollTopDoc < this.heightBlockHeader) {
-        this.isActive = false;
-        document.removeEventListener("scroll", this.unShowMenu);
-        document.addEventListener("scroll", this.showMenu);
-      }
-    },
-    fixedMenu() {
-      const scrollTopDoc = document.documentElement.scrollTop;
-      if (scrollTopDoc > this.heightBlockPerformance + this.heightBlockHeader) {
-        this.isFixed = true;
-        document.removeEventListener("scroll", this.fixedMenu);
-        document.addEventListener("scroll", this.unFixedMenu);
-      }
-    },
-    unFixedMenu() {
-      const scrollTopDoc = document.documentElement.scrollTop;
-      if (scrollTopDoc < this.heightBlockPerformance + this.heightBlockHeader) {
-        this.isFixed = false;
-        document.removeEventListener("scroll", this.unFixedMenu);
-        document.addEventListener("scroll", this.fixedMenu);
-      }
     },
     showPresentationBlock() {
       this.isPresentationActive = true;
@@ -290,16 +260,12 @@ export default {
 
 <style lang="scss">
 .performance {
+  @include flex-all-center;
   position: relative;
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
 
   &__images {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    @include photo-image;
   }
 
   &::after {
@@ -313,6 +279,7 @@ export default {
   }
 
   &__title {
+    margin-bottom: 100px;
     text-align: center;
     @include mobile {
       font-size: 25px;
@@ -320,10 +287,10 @@ export default {
   }
 
   &__block {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding: 15px;
+    position: relative;
+    @include flex-all-center;
+    flex-direction: column;
     color: var(--color-white);
     z-index: 3;
   }
@@ -331,53 +298,12 @@ export default {
   &__arrow-block {
     padding: 15px;
     @include flex-all-center;
-    position: absolute;
-    bottom: 5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border: 1px solid var(--color-white);
     border-radius: 50%;
-    z-index: 3;
   }
 
   &__arrow {
     animation: color 2s infinite alternate;
-  }
-}
-
-.menu {
-  background-color: var(--color-hover-dark);
-  transform: translate(-100%, 0);
-  transition: transform 0.5s linear;
-  animation: unShowMenu 1s linear;
-  z-index: 4;
-
-  &__wrapper {
-    margin: 0 auto;
-    padding: 0 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: var(--wrapper-width);
-  }
-
-  &__images {
-    height: 50px;
-  }
-
-  &__nav {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-
-  &__link {
-    color: var(--color-link);
-
-    &:hover {
-      text-decoration: underline;
-      color: var(--color-link-hover);
-    }
   }
 }
 
@@ -386,12 +312,6 @@ export default {
   opacity: 1;
   transition: transform 0.5s linear;
   animation: showMenu 1s linear;
-}
-
-.fixed {
-  position: fixed;
-  top: 0;
-  width: 100%;
 }
 
 .presentation {
@@ -445,8 +365,11 @@ export default {
 }
 
 .marketing {
-  &__text_pt-5 {
+  &__text {
     padding-top: 5px;
+    &:first-child {
+      padding-top: 0;
+    }
   }
 
   &__block {
@@ -533,12 +456,14 @@ export default {
   }
 
   &__activity {
+    text-align: center;
     color: var(--color-link-hover);
     opacity: 0;
     transform: translateX(30px);
     transition: opacity 0.4s ease, transform 0.4s ease;
   }
   &__estate {
+    text-align: center;
     color: var(--color-white);
     opacity: 0;
     transform: translateX(30px);
@@ -588,10 +513,13 @@ export default {
     max-width: 45vw;
     text-align: center;
   }
-  &__button {
+  &__transition {
     padding: 10px 0;
     width: 45vw;
+    background-color: var(--color-field-background);
     font-size: 18px;
+    color: var(--color-text);
+    text-align: center;
     border: 1px solid var(--color-button-backgraund);
     border-radius: 5px;
     transition: all 0.5s ease;

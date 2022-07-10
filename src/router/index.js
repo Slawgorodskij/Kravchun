@@ -11,6 +11,15 @@ const routes = [
     },
   },
   {
+    path: "/contact",
+    name: "contact",
+    component: () =>
+      import(/* webpackChunkName: "contact" */ "../views/ContactView.vue"),
+    meta: {
+      title: "Связь",
+    },
+  },
+  {
     path: "/about",
     name: "about",
     component: () =>
