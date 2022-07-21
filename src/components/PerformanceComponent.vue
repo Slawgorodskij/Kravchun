@@ -15,7 +15,7 @@ export default {
 
 <style lang="scss">
 .performance-block {
-  height: 40vh;
+  height: 60vh;
   background-image: url("../assets/images/houseContactPage.jpg");
   background-repeat: no-repeat;
   background-size: cover;

@@ -4,26 +4,46 @@
       <router-link class="nav__link" to="/">
         <img
           class="menu__images"
-          src="@/assets/images/logo.png"
-          alt="Кравчун Л.В."
+          src="@/assets/images/logo.svg"
+          alt="Изображение макета дома на ладони"
         />
       </router-link>
+      <BurgerComponent class="mobile-burger" @click="openMenu" />
       <nav class="menu__nav">
-        <router-link class="menu__link" to="/">Главная</router-link>
-        <router-link class="menu__link" to="/about">Обо мне</router-link>
-        <router-link class="menu__link" to="/contact">Контакт</router-link>
+        <router-link
+          class="menu__link"
+          :to="itemMenu.link"
+          v-for="(itemMenu, id) of arrayMenu"
+          :key="id"
+        >
+          {{ itemMenu.name }}
+        </router-link>
       </nav>
+      <MobileMenuComponent
+        :showMenuMobile="showMenuMobile"
+        :arrayMenu="arrayMenu"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import BurgerComponent from "@/components/BurgerComponent";
+import MobileMenuComponent from "@/components/mobileMenuComponent";
+
 export default {
   name: "MenuComponent",
+  components: { BurgerComponent, MobileMenuComponent },
   data() {
     return {
       isActive: false,
       isFixed: false,
+      showMenuMobile: false,
+      arrayMenu: [
+        { link: "/", name: "Главная" },
+        { link: "/about", name: "О нас" },
+        { link: "/contact", name: "Контакт" },
+      ],
     };
   },
   created() {
@@ -74,12 +94,24 @@ export default {
         document.addEventListener("scroll", this.fixedMenu);
       }
     },
+    openMenu() {
+      document.body.classList.toggle("hidden");
+      document
+        .querySelector(".mobile-burger")
+        .classList.toggle("header__burger--active");
+      this.showMenuMobile = !this.showMenuMobile;
+    },
   },
 };
 </script>
 
 <style lang="scss">
+.hidden {
+  overflow: hidden;
+}
+
 .menu {
+  position: relative;
   background-color: var(--color-hover-dark);
   transform: translate(-100%, 0);
   transition: transform 0.5s linear;
@@ -101,10 +133,19 @@ export default {
     display: flex;
     align-items: center;
     gap: 15px;
+    @include mobile {
+      display: none;
+    }
   }
 
   &__link {
+    text-decoration: none;
     color: var(--color-link);
+
+    &-mobile {
+      padding-top: 50px;
+      font-size: 25px;
+    }
 
     &:hover {
       text-decoration: underline;
@@ -112,6 +153,15 @@ export default {
     }
   }
 }
+
+.active {
+  position: sticky;
+  transform: translate(0, 0);
+  opacity: 1;
+  transition: transform 0.5s linear;
+  animation: showMenu 1s linear;
+}
+
 .fixed {
   position: fixed;
   top: 0;

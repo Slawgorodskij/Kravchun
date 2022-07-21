@@ -3,8 +3,34 @@
     <div class="home__performance performance">
       <img class="performance__images" src="@/assets/images/house.jpg" alt="" />
       <div class="performance__block">
-        <img src="@/assets/images/logo-v.png" alt="" />
+        <svg
+          class="performance__logo"
+          viewBox="0 0 296.096 296.096"
+          style="enable-background: new 0 0 296.096 296.096"
+          xml:space="preserve"
+        >
+          <g>
+            <path
+              d="M101.15,175.142c6.966,0,14.634,0.68,21.634,1.966v-20.969h51v37.424c6,2.203,10.381,4.579,14.494,7.567
+		c7.797,5.664,12.082,13.099,12.339,21.254c9.925-2.345,19.028-6.321,26.905-11.737c2.846-1.956,6.262-3.668,8.262-5.137v-58.243
+		L148.047,49.23l-89.263,98.628v35.247c6-1.521,11.468-3.156,17.806-4.884C84.086,176.178,92.405,175.142,101.15,175.142z"
+            />
+            <polygon
+              points="148.446,25.313 247.63,136.139 270.251,136.139 148.247,0 97.784,55.572 97.784,33.139 60.784,33.139 
+		60.784,96.454 25.201,136.139 48.144,136.139 	"
+            />
+            <path
+              d="M259.083,214.931c-5.494,0-12.89,2.44-22.289,8.901c-17.182,11.811-38.215,17.012-57.433,17.012
+		c-15.623,0-30.045-3.435-40.23-9.546c-5.046-3.028-5.031-4.039-2.104-4.039c5.878,0,23.504,4.079,35.449,4.079
+		c5.878,0,10.379-0.987,11.432-3.934c4.867-13.628-14.001-18.016-33.73-26c-14.444-5.848-32.073-10.262-48.861-10.263
+		c-6.999,0-13.914,0.767-20.332,2.517c-29.141,7.945-50.199,13.93-56.199,15.873v76.48c12-4.413,25.9-8.642,33.81-8.642
+		c14.516,0,73.253,18.726,106.51,18.726c4.658,0,8.829-0.367,12.298-1.204c28.227-6.814,77.232-46.725,90.533-60.351
+		C274.323,227.998,271.797,214.931,259.083,214.931z"
+            />
+          </g>
+        </svg>
         <h1 class="performance__title">{{ performanceTitle }}</h1>
+        <h2 class="performance__slogan">{{ performanceSlogan }}</h2>
         <div class="performance__arrow-block">
           <svg
             class="performance__arrow"
@@ -54,8 +80,10 @@
               />
             </div>
             <div class="marketing__block-name">
-              <p class="marketing__lastname">Кравчун</p>
-              <p class="marketing__firstname">Людмила Владимировна</p>
+              <p class="marketing__lastname">{{ lastname }}</p>
+              <p class="marketing__firstname">
+                {{ firstname }} {{ patronymic }}
+              </p>
             </div>
           </div>
         </div>
@@ -88,13 +116,13 @@
         </div>
       </div>
     </section>
-    <div class="home__feedback feedback">
-      <h2 class="feedback__title">Свяжитесь с нами</h2>
-      <p class="feedback__text">
+    <div class="home__feedback home-feedback">
+      <h2 class="home-feedback__title">Свяжитесь с нами</h2>
+      <p class="home-feedback__text">
         Мы с удовольствием поможем найти недвижимость вашей мечты. Оформить
         документы. Провести безопасные сделки.
       </p>
-      <router-link class="feedback__transition" to="/contact"
+      <router-link class="home-feedback__transition" to="/contact"
         >Контакт</router-link
       >
     </div>
@@ -108,7 +136,8 @@ export default {
   components: { MenuComponent },
   data() {
     return {
-      performanceTitle:
+      performanceTitle: "Агенство недвижимости",
+      performanceSlogan:
         "Мы здесь, чтобы оформление недвижимости прошло с успехом.",
       sloganText:
         "Мы стремимся обеспечить безопасность ваших сделок с недвижимостью.",
@@ -117,6 +146,9 @@ export default {
 
         "Имея большой опыт работы в данном направлении мы готовы помочь в поиске недвижимости и сборе необходимых документов юридически грамотном оформлении.",
       ],
+      lastname: "Иванова",
+      firstname: "Мария",
+      patronymic: "Ивановна",
       activityItem: ["При покупке", "Продаже", "Аренде"],
       estateItem: ["Квартир", "Гаражей", "Дач"],
       isPresentationActive: false,
@@ -277,8 +309,19 @@ export default {
     height: 100%;
     background-color: var(--color-hover-dark);
   }
-
+  &__logo {
+    width: 100px;
+    height: 100px;
+    fill: var(--color-white);
+  }
   &__title {
+    margin-bottom: 50px;
+    text-align: center;
+    @include mobile {
+      font-size: 25px;
+    }
+  }
+  &__slogan {
     margin-bottom: 100px;
     text-align: center;
     @include mobile {
@@ -307,13 +350,6 @@ export default {
   }
 }
 
-.active {
-  transform: translate(0, 0);
-  opacity: 1;
-  transition: transform 0.5s linear;
-  animation: showMenu 1s linear;
-}
-
 .presentation {
   &__active {
     background-color: var(--color-background-body-dark);
@@ -331,7 +367,7 @@ export default {
   &__item {
     padding: 15px;
     min-height: 60vh;
-    flex: 0 0 50%;
+    flex: 1 1 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -424,6 +460,7 @@ export default {
   }
 
   &__wrapper {
+    padding: 150px 0;
     margin: 0 auto;
     max-width: var(--wrapper-width);
     z-index: 3;
@@ -500,12 +537,12 @@ export default {
 .text-leave-active {
   animation: showText 0.5s reverse;
 }
-.feedback {
+.home-feedback {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 60vh;
+  min-height: 60vh;
   background-color: var(--color-hover-dark);
   color: var(--color-white);
   &__text {

@@ -3,12 +3,6 @@ html {
   scroll-behavior: smooth;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
 body {
   margin: 0;
   font-family: "Formular", sans-serif;
@@ -22,27 +16,6 @@ body {
   flex-direction: column;
 }
 
-main {
-  flex-grow: 1;
-}
-
-img {
-  max-width: 100%;
-}
-
-a {
-  text-decoration: none;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-p {
-  margin: 0;
-  padding: 0;
-}
 
 //
 //.for-mobile {
@@ -66,15 +39,11 @@ p {
 .container {
   margin: 0 auto;
   padding: 0 15px;
-  max-width: 1200px;
+  max-width: var(--wrapper-width);
 }
 
 .main {
   min-height: 100vh;
-}
-
-.js-focus-visible :focus:not(.focus-visible) {
-  outline: none;
 }
 
 //.wrapper {
